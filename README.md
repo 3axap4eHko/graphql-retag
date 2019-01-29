@@ -1,6 +1,6 @@
 # GraphQL reTag
 
-Helpful utility that wraps `graphql-tag` module for parsing GraphQL queries, supports nesting fragments and resolves dependencies.
+Helpful utility that wraps `graphql-tag` module for parsing GraphQL queries, supports nesting fragments and resolves fragments dependencies.
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][npm-url]
@@ -66,7 +66,7 @@ export default gql`
 
 ```
 
-`graphql-retag` resolves even nested dependencies without conflicts.
+`graphql-retag` resolves even nested fragment dependencies without conflicts.
 
 ## License
 [The MIT License](http://opensource.org/licenses/MIT)
