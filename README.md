@@ -8,41 +8,65 @@ Helpful utility that wraps `graphql-tag` module for parsing GraphQL queries, sup
 
 ## Usage
 
+Let's assume we have a fragment `image`
 `./fragments/image.js`
 ```js
 import gql from 'graphql-retag';
 
 export default gql`
   fragment image on Image {
-    sizes {
-      xl
-      lg
-      md
-      sm
-      xs
-      inline
+    large
+    inline
+  }
+`;
+```
+Fragment `image` used by fragment `userInfo`
+`./fragments/userInfo.js`
+```js
+import gql from 'graphql-retag';
+import image from './image';
+
+export default gql`
+  fragment userInfo on User {
+    username
+    avatar {
+      ...${image}
     }
   }
 `;
 ```
+
+And both used by query `GetAllPosts`
 
 `./GetAllPosts.js`
 ```
 import gql from 'graphql-retag';
 import image from './fragments/image';
+import userInfo from './fragments/userInfo';
 
 export default gql`
   query GetAllPosts(first: 100) {
     id
     title
+    author {
+      ...${userInfo}
+    }
     content
     images {
       ...${images}
+    }
+    comments {
+      content
+      author {
+        ...${userInfo}
+      }
     }
   }
 `;
 
 ```
+
+`graphql-retag` resolves even nested dependencies without conflicts.
 
 ## License
 [The MIT License](http://opensource.org/licenses/MIT)
