@@ -19,7 +19,7 @@ describe('graphql-reTag test suite', () => {
     expect(print(getAllPosts)).toMatchSnapshot();
   });
 
-  test('single fragment test', () => {
+  test('single fragment used one time test', () => {
     const image = gql`
         fragment image on Image {
             large
@@ -71,7 +71,8 @@ describe('graphql-reTag test suite', () => {
 
     expect(print(getAllPosts)).toMatchSnapshot();
   });
-  test('a few nested fragments test', () => {
+
+  test('a few nested fragments used a few times test', () => {
     const image = gql`
         fragment image on Image {
             large
@@ -86,14 +87,6 @@ describe('graphql-reTag test suite', () => {
             }
         }
     `;
-    const comment = gql`
-        fragment comment on Comment {
-            author {
-                ...${user}
-            }
-            content
-        }
-    `;
     const getAllPosts = gql`
         query GetAllPosts {
             allPosts {
@@ -105,7 +98,13 @@ describe('graphql-reTag test suite', () => {
                     ...${image}
                 }
                 comments {
-                    ...${comment}
+                    author {
+                        ...${user}
+                    }
+                    image {
+                        ...${image}
+                    }
+                    message
                 }
             }
         }

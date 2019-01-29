@@ -7,11 +7,15 @@ function getName(definition: any): string {
 }
 
 function getDeps(tags: any[]) {
-  return Array.from(new Set([].concat(...tags.map(tag => (tag.dependecies || []).concat([tag])))));
+  return [].concat(...tags.map(tag => (tag.dependecies || []).concat([tag])));
 }
 
 function getNames(tags: any[]) {
-  return Array.from(new Set([].concat(...tags.map(tag => tag.definitions.map(getName)))));
+  return [].concat(...tags.map(tag => tag.definitions.map(getName)));
+}
+
+function getUniqDeps(tags: any[]) {
+  return Array.from(new Set(tags));
 }
 
 export default function gql(literals: any, ...placeholders: any[]): any {
@@ -22,7 +26,7 @@ export default function gql(literals: any, ...placeholders: any[]): any {
 
   const operation = tag.definitions.find((definition: any) => definition.kind === 'OperationDefinition');
   if (operation) {
-    const body = tag.dependencies.map((dependency: any) => dependency.loc.source.body).concat([tag.loc.source.body]).join('\n');
+    const body = getUniqDeps(tag.dependencies).map((dependency: any) => dependency.loc.source.body).concat([tag.loc.source.body]).join('\n');
     return graphql([body]);
   } else {
     return tag;
