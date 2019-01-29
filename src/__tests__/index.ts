@@ -40,6 +40,35 @@ describe('graphql-reTag test suite', () => {
     expect(print(getAllPosts)).toMatchSnapshot();
   });
 
+  test('nested fragments test', () => {
+    const image = gql`
+        fragment image on Image {
+            large
+            inline
+        }
+    `;
+    const user = gql`
+        fragment user on User {
+            username
+            image {
+                ...${image}
+            }
+        }
+    `;
+    const getAllPosts = gql`
+        query GetAllPosts {
+            allPosts {
+                title
+                author {
+                    ...${user}
+                }
+            }
+        }
+    `;
+
+    expect(print(getAllPosts)).toMatchSnapshot();
+  });
+
   test('a few fragments test', () => {
     const image = gql`
         fragment image on Image {

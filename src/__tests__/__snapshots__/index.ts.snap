@@ -28,16 +28,16 @@ query GetAllPosts {
 `;
 
 exports[`graphql-reTag test suite a few nested fragments used a few times test 1`] = `
-"fragment user on User {
+"fragment image on Image {
+  large
+  inline
+}
+
+fragment user on User {
   username
   avatar {
     ...image
   }
-}
-
-fragment image on Image {
-  large
-  inline
 }
 
 query GetAllPosts {
@@ -57,6 +57,30 @@ query GetAllPosts {
         ...image
       }
       message
+    }
+  }
+}
+"
+`;
+
+exports[`graphql-reTag test suite nested fragments test 1`] = `
+"fragment image on Image {
+  large
+  inline
+}
+
+fragment user on User {
+  username
+  image {
+    ...image
+  }
+}
+
+query GetAllPosts {
+  allPosts {
+    title
+    author {
+      ...user
     }
   }
 }
