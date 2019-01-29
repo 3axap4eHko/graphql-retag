@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf build && tsc --declaration --outDir build && cp package.json README.md build",
     "test": "jest",
-    "release": "git pull --rebase && npm version patch && npm run build && npm publish build && git push --tags && git push"
+    "release": "git pull --rebase && npm run test && npm version patch && npm run build && npm publish build && git push --tags && git push"
   },
   "repository": {
     "type": "git",
