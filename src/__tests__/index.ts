@@ -1,0 +1,116 @@
+import { print } from 'graphql/language/printer';
+import gql, { resetCaches } from '../index';
+
+beforeEach(() => {
+  resetCaches();
+});
+
+describe('graphql-reTag test suite', () => {
+
+  test('no fragments test', () => {
+    const getAllPosts = gql`
+        query GetAllPosts {
+            allPosts {
+                title
+            }
+        }
+    `;
+
+    expect(print(getAllPosts)).toMatchSnapshot();
+  });
+
+  test('single fragment test', () => {
+    const image = gql`
+        fragment image on Image {
+            large
+            inline
+        }
+    `;
+    const getAllPosts = gql`
+        query GetAllPosts {
+            allPosts {
+                title
+                images {
+                    ...${image}
+                }
+            }
+        }
+    `;
+
+    expect(print(getAllPosts)).toMatchSnapshot();
+  });
+
+  test('a few fragments test', () => {
+    const image = gql`
+        fragment image on Image {
+            large
+            inline
+        }
+    `;
+    const comment = gql`
+        fragment comment on Comment {
+            author {
+                username
+            }
+            content
+        }
+    `;
+    const getAllPosts = gql`
+        query GetAllPosts {
+            allPosts {
+                title
+                images {
+                    ...${image}
+                }
+                comments {
+                    ...${comment}
+                }
+            }
+        }
+    `;
+
+    expect(print(getAllPosts)).toMatchSnapshot();
+  });
+  test('a few nested fragments test', () => {
+    const image = gql`
+        fragment image on Image {
+            large
+            inline
+        }
+    `;
+    const user = gql`
+        fragment user on User {
+            username
+            avatar {
+                ...${image}
+            }
+        }
+    `;
+    const comment = gql`
+        fragment comment on Comment {
+            author {
+                ...${user}
+            }
+            content
+        }
+    `;
+    const getAllPosts = gql`
+        query GetAllPosts {
+            allPosts {
+                title
+                author {
+                    ...${user}
+                }
+                images {
+                    ...${image}
+                }
+                comments {
+                    ...${comment}
+                }
+            }
+        }
+    `;
+
+    expect(print(getAllPosts)).toMatchSnapshot();
+  });
+});

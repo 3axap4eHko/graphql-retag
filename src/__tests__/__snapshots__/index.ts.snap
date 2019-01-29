@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`graphql-reTag test suite a few fragments test 1`] = `
+"fragment image on Image {
+  large
+  inline
+}
+
+fragment comment on Comment {
+  author {
+    username
+  }
+  content
+}
+
+query GetAllPosts {
+  allPosts {
+    title
+    images {
+      ...image
+    }
+    comments {
+      ...comment
+    }
+  }
+}
+"
+`;
+
+exports[`graphql-reTag test suite a few nested fragments test 1`] = `
+"fragment user on User {
+  username
+  avatar {
+    ...image
+  }
+}
+
+fragment image on Image {
+  large
+  inline
+}
+
+fragment comment on Comment {
+  author {
+    ...user
+  }
+  content
+}
+
+query GetAllPosts {
+  allPosts {
+    title
+    author {
+      ...user
+    }
+    images {
+      ...image
+    }
+    comments {
+      ...comment
+    }
+  }
+}
+"
+`;
+
+exports[`graphql-reTag test suite no fragments test 1`] = `
+"query GetAllPosts {
+  allPosts {
+    title
+  }
+}
+"
+`;
+
+exports[`graphql-reTag test suite single fragment test 1`] = `
+"fragment image on Image {
+  large
+  inline
+}
+
+query GetAllPosts {
+  allPosts {
+    title
+    images {
+      ...image
+    }
+  }
+}
+"
+`;
