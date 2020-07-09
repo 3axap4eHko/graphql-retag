@@ -1,6 +1,6 @@
 {
   "name": "graphql-retag",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Helpful utility that wraps `graphql-tag` module for parsing GraphQL queries, supports nesting fragments and resolves dependencies.",
   "main": "index.js",
   "scripts": {
