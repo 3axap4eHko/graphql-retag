@@ -4,7 +4,7 @@
   "description": "Helpful utility that wraps `graphql-tag` module for parsing GraphQL queries, supports nesting fragments and resolves dependencies.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf build && tsc --declaration --outDir build && cp package.json README.md build",
+    "build": "rm -rf build && tsc && cp package.json README.md build",
     "test": "jest",
     "release": "git pull --rebase && npm run test && npm version patch && npm run build && npm publish build && git push --tags && git push"
   },
@@ -20,15 +20,16 @@
   },
   "homepage": "https://github.com/3axap4eHko/graphql-retag#readme",
   "devDependencies": {
-    "@types/graphql": "^14.0.5",
-    "@types/jest": "^23.3.13",
-    "graphql": "^14.1.1",
-    "graphql-tag": "^2.10.1",
-    "jest": "^24.0.0",
-    "ts-jest": "^23.10.5",
-    "typescript": "^3.2.4"
+    "@types/graphql": "^14.5.0",
+    "@types/jest": "^26.0.4",
+    "graphql": "^15.3.0",
+    "graphql-tag": "^2.10.4",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.6"
   },
   "peerDependencies": {
-    "graphql-tag": "^2.10.1"
+    "graphql": "^15.3.0",
+    "graphql-tag": "^2.10.4"
   }
 }

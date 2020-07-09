@@ -70,7 +70,7 @@ export default gql`
 
 ## License
 [The MIT License](http://opensource.org/licenses/MIT)
-Copyright (c) 2019 Ivan Zakharchanka
+Copyright (c) 2020 Ivan Zakharchanka
 
 
 [downloads-image]: https://img.shields.io/npm/dm/graphql-retag.svg

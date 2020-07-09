@@ -1,4 +1,9 @@
+import { DocumentNode } from 'graphql';
 import graphql from 'graphql-tag';
+
+interface DocumentNodeEx extends DocumentNode {
+  dependencies: any[];
+}
 
 export { resetCaches, disableFragmentWarnings } from 'graphql-tag';
 
@@ -21,7 +26,7 @@ function getUniqDeps(tags: any[]) {
 export default function gql(literals: any, ...placeholders: any[]): any {
   const dependencies = getDeps(placeholders);
   const names = getNames(placeholders);
-  const tag = graphql(literals, ...names);
+  const tag = graphql(literals, ...names) as DocumentNodeEx;
   tag.dependencies = dependencies;
   const isOperation = !!tag.definitions.find((definition: any) => definition.kind === 'OperationDefinition');
   if (isOperation) {
